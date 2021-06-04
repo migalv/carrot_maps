@@ -36,13 +36,7 @@ captures/
 
 # IntelliJ
 *.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/assetWizardSettings.xml
-.idea/dictionaries
-.idea/libraries
-.idea/caches
+.idea/
 
 # Keystore files
 # Uncomment the following line if you do not want to check your keystore files in.
@@ -211,12 +205,10 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+assets/
 
+.vscode/
+.vscode/*
 
 ## Custom
 # Google API key and other resources
@@ -224,3 +216,17 @@ GoogleService-Info.plist
 google-services.json
 # Plugins (already resolved through pubspec.yaml)
 .flutter-plugins
+.flutter-plugins-dependencies
+generated_plugin_registrant.dart
+
+## Generated files
+*.g.dart
+*.freezed.dart
+*.config.dart
+*.gr.dart
+
+## For testing
+.test_coverage.dart
+coverage/
+
+@migalv
