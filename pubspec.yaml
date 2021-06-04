@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  dartz: ^0.10.0-nullsafety.2
   freezed_annotation: ^0.14.2
 
 dev_dependencies:
