@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'place_repository_failure.freezed.dart';
 
 @freezed
-abstract class PlaceRepositoryFailure with _$PlaceRepositoryFailure {
+class PlaceRepositoryFailure with _$PlaceRepositoryFailure {
   /// Failure when an unexpected error ocurred in the PlaceRepository
   const factory PlaceRepositoryFailure.unexpected() = Unexpected;
 
