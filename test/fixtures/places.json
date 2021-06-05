@@ -1,0 +1,19 @@
+{
+  "places": {
+    "0": {
+      "name": "Madrid",
+      "longitude": 10,
+      "latitude": 10
+    },
+    "1": {
+      "name": "Barcelona",
+      "longitude": 11,
+      "latitude": 11
+    },
+    "2": {
+      "name": "CarrotLabs",
+      "longitude": 12,
+      "latitude": 12
+    }
+  }
+}
