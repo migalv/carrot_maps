@@ -1,6 +1,7 @@
 import 'package:carrot_maps/domain/place.dart';
 import 'package:carrot_maps/infrastructure/place_repository.dart';
 import 'package:cloud_firestore_mocks/cloud_firestore_mocks.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:carrot_maps/infrastructure/core/firestore_helpers.dart';
 
@@ -32,6 +33,20 @@ void main() {
           placeRepository.placesStream.map((e) => e.getOrElse(() => [])),
           emits(places),
         );
+      },
+    );
+  });
+
+  group('create', () {
+    test(
+      'should return unit when no errors happened',
+      () async {
+        // arrange
+        Place place = Place(name: "Madrid", longitude: 20, latitude: 20);
+        // act
+        final result = await placeRepository.create(place);
+        // assert
+        expect(result, const Right(unit));
       },
     );
   });

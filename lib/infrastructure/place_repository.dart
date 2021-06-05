@@ -13,9 +13,20 @@ class PlaceRepository implements IPlaceRepository {
   PlaceRepository(this._firestore);
 
   @override
-  Future<Either<PlaceRepositoryFailure, Unit>> create(Place place) {
-    // TODO: implement create
-    throw UnimplementedError();
+  Future<Either<PlaceRepositoryFailure, Unit>> create(Place place) async {
+    try {
+      await _firestore.placesCollection.add(place.toJson());
+
+      return right(unit);
+    } on PlatformException catch (e) {
+      if ((e.message ?? '').contains('PERMISSION_DENIED')) {
+        const failure = const PlaceRepositoryFailure.insufficientPermissions();
+        return left(failure);
+      } else {
+        const failure = const PlaceRepositoryFailure.unexpected();
+        return left(failure);
+      }
+    }
   }
 
   @override
