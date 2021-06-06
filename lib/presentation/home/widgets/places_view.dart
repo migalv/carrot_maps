@@ -7,7 +7,7 @@ class PlacesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       child: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -21,7 +21,7 @@ class PlacesView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: TextFormField(
               autofocus: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Nombre del lugar",
                 border: OutlineInputBorder(),
               ),
@@ -31,7 +31,7 @@ class PlacesView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Longitud",
                 border: OutlineInputBorder(),
               ),
@@ -42,7 +42,7 @@ class PlacesView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Latitud",
                 border: OutlineInputBorder(),
               ),
@@ -52,7 +52,7 @@ class PlacesView extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {},
-            child: Text("Crear lugar"),
+            child: const Text("Crear lugar"),
           ),
         ],
       ),

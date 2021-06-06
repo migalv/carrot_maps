@@ -8,17 +8,17 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      routes: [
+      routes: const [
         MapRouter(),
         PlacesRouter(),
       ],
       appBarBuilder: (_, __) => AppBar(
-        title: Text("Carrot Maps"),
+        title: const Text("Carrot Maps"),
       ),
       bottomNavigationBuilder: (_, tabsRouter) => BottomNavigationBar(
         currentIndex: tabsRouter.activeIndex,
         onTap: tabsRouter.setActiveIndex,
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.map_outlined),
             activeIcon: Icon(Icons.map),

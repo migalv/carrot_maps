@@ -8,14 +8,15 @@ import 'package:carrot_maps/infrastructure/core/firestore_helpers.dart';
 import '../fixtures/fixture_reader.dart';
 
 void main() {
-  MockFirestoreInstance mockFirestore = MockFirestoreInstance();
-  PlaceRepository placeRepository = PlaceRepository(mockFirestore);
+  final MockFirestoreInstance mockFirestore = MockFirestoreInstance();
+  final PlaceRepository placeRepository = PlaceRepository(mockFirestore);
 
   final Map<String, dynamic> placesJson =
       jsonFixtureAsMap('places.json')["places"] as Map<String, dynamic>;
 
   final List<Place> places = placesJson.entries
-      .map((entry) => Place.fromJson(entry.value).copyWith(id: entry.key))
+      .map((entry) => Place.fromJson(entry.value as Map<String, dynamic>)
+          .copyWith(id: entry.key))
       .toList();
 
   group('placesStream', () {
@@ -42,7 +43,7 @@ void main() {
       'should return unit when no errors happened',
       () async {
         // arrange
-        Place place = Place(name: "Madrid", longitude: 20, latitude: 20);
+        const Place place = Place(name: "Madrid", longitude: 20, latitude: 20);
         // act
         final result = await placeRepository.create(place);
         // assert

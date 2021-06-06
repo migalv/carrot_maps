@@ -6,9 +6,9 @@ class MapView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GoogleMap(
+    return const GoogleMap(
       initialCameraPosition: CameraPosition(
-        target: const LatLng(45.521563, -122.677433),
+        target: LatLng(45.521563, -122.677433),
       ),
     );
   }

@@ -20,7 +20,7 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
     PlacesEvent event,
   ) async* {
     event.map(formSubmitted: (event) async* {
-      Place newPlace = Place(
+      final Place newPlace = Place(
         name: event.name,
         longitude: event.longitude,
         latitude: event.latitude,
@@ -30,8 +30,8 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
       yield* result.fold((l) async* {
         yield PlacesState.formSubmitionFailure(failure: l);
       }, (r) async* {
-        yield PlacesState.formSubmitionSuccess();
-        yield PlacesState.initial();
+        yield const PlacesState.formSubmitionSuccess();
+        yield const PlacesState.initial();
       });
     });
   }

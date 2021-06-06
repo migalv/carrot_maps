@@ -20,10 +20,10 @@ class PlaceRepository implements IPlaceRepository {
       return right(unit);
     } on PlatformException catch (e) {
       if ((e.message ?? '').contains('PERMISSION_DENIED')) {
-        const failure = const PlaceRepositoryFailure.insufficientPermissions();
+        const failure = PlaceRepositoryFailure.insufficientPermissions();
         return left(failure);
       } else {
-        const failure = const PlaceRepositoryFailure.unexpected();
+        const failure = PlaceRepositoryFailure.unexpected();
         return left(failure);
       }
     }
@@ -41,7 +41,7 @@ class PlaceRepository implements IPlaceRepository {
         return left(failure);
       }
 
-      final failure = PlaceRepositoryFailure.unexpected();
+      const failure = PlaceRepositoryFailure.unexpected();
       return left(failure);
     });
   }
