@@ -1,23 +1,23 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:carrot_maps/presentation/routes/router.gr.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final LatLng _initialPosition = const LatLng(45.521563, -122.677433);
-
-    return Scaffold(
-      appBar: AppBar(
+    return AutoTabsScaffold(
+      routes: [
+        MapRouter(),
+        PlacesRouter(),
+      ],
+      appBarBuilder: (_, __) => AppBar(
         title: Text("Carrot Maps"),
       ),
-      body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: _initialPosition,
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBuilder: (_, tabsRouter) => BottomNavigationBar(
+        currentIndex: tabsRouter.activeIndex,
+        onTap: tabsRouter.setActiveIndex,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.map_outlined),
