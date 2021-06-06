@@ -5,7 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:carrot_maps/infrastructure/core/firestore_helpers.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: IPlaceRepository)
 class PlaceRepository implements IPlaceRepository {
   final FirebaseFirestore _firestore;
 

@@ -4,7 +4,7 @@ part of 'places_bloc.dart';
 class PlacesEvent with _$PlacesEvent {
   const factory PlacesEvent.formSubmitted({
     required String name,
-    required double longitude,
-    required double latitude,
+    required String longitude,
+    required String latitude,
   }) = _FormSubmitted;
 }
