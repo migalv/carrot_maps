@@ -1,5 +1,6 @@
 import 'package:carrot_maps/application/places/places_bloc.dart';
 import 'package:carrot_maps/injection.dart';
+import 'package:carrot_maps/presentation/themes/carrot_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -95,6 +96,10 @@ class _PlacesViewState extends State<PlacesView> {
                     }
                   },
                   child: const Text("Crear lugar"),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(accentColor),
+                  ),
                 ),
               ],
             ),

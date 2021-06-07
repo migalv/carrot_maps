@@ -1,4 +1,5 @@
 import 'package:carrot_maps/presentation/routes/router.gr.dart';
+import 'package:carrot_maps/presentation/themes/carrot_theme.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
@@ -7,7 +8,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Carrot Maps',
-      theme: ThemeData.dark(),
+      theme: carrotTheme,
       routerDelegate: _appRouter.delegate(),
       routeInformationParser: _appRouter.defaultRouteParser(),
     );
