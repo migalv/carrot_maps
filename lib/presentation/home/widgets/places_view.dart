@@ -95,11 +95,11 @@ class _PlacesViewState extends State<PlacesView> {
                       _submitForm(context);
                     }
                   },
-                  child: const Text("Crear lugar"),
                   style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(accentColor),
                   ),
+                  child: const Text("Crear lugar"),
                 ),
               ],
             ),

@@ -1,5 +1,6 @@
 import 'package:carrot_maps/application/map/map_bloc.dart';
 import 'package:carrot_maps/injection.dart';
+import 'package:carrot_maps/presentation/home/widgets/thermometer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -14,7 +15,18 @@ class MapView extends StatelessWidget {
       create: (_) => getIt<MapBloc>()..add(const MapEvent.loadStarted()),
       child: BlocConsumer<MapBloc, MapState>(
         listener: _blocListener,
-        builder: (context, state) => _buildMap(state),
+        builder: (context, state) => Stack(
+          children: [
+            _buildMap(state),
+            const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Thermometer(temperature: 21.4),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
