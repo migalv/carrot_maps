@@ -24,6 +24,7 @@ dependencies:
   injectable: ^1.4.1
   json_annotation: ^4.0.1
   location: 4.1.1
+  flutter_dotenv: ^4.0.0-nullsafety.0
 
 dev_dependencies:
   flutter_test:
@@ -43,6 +44,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/translations/
+    - .env
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
