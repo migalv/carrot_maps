@@ -6,32 +6,32 @@ import 'package:carrot_maps/domain/place/place.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-part 'map_event.dart';
-part 'map_state.dart';
-part 'map_bloc.freezed.dart';
+part 'place_loader_event.dart';
+part 'place_loader_state.dart';
+part 'place_loader_bloc.freezed.dart';
 
 @injectable
-class MapBloc extends Bloc<MapEvent, MapState> {
+class PlaceLoaderBloc extends Bloc<PlaceLoaderEvent, PlaceLoaderState> {
   final IPlaceRepository _placeRepository;
 
-  MapBloc(this._placeRepository) : super(const _Initial());
+  PlaceLoaderBloc(this._placeRepository) : super(const _Initial());
 
   @override
-  Stream<MapState> mapEventToState(
-    MapEvent event,
+  Stream<PlaceLoaderState> mapEventToState(
+    PlaceLoaderEvent event,
   ) async* {
     yield* event.when(
       loadStarted: () async* {
         yield* _placeRepository.placesStream.map(
           (failureOrPlaces) => failureOrPlaces.fold(
-            (failure) => MapState.loadFailure(
+            (failure) => PlaceLoaderState.loadFailure(
               failureMessage: failure.when(
                 unexpected: () => "Ocurrió un error inesperado",
                 insufficientPermissions: () =>
                     "Usuario sin los permisos necesarios",
               ),
             ),
-            (places) => MapState.loadSuccess(
+            (places) => PlaceLoaderState.loadSuccess(
               places: places,
             ),
           ),

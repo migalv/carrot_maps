@@ -1,4 +1,4 @@
-import 'package:carrot_maps/application/map/map_bloc.dart';
+import 'package:carrot_maps/application/place_loader/place_loader_bloc.dart';
 import 'package:carrot_maps/application/weather/weather_bloc.dart';
 import 'package:carrot_maps/injection.dart';
 import 'package:carrot_maps/presentation/home/widgets/map_widget.dart';
@@ -14,8 +14,8 @@ class MapView extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) {
-          final MapBloc mapBloc = getIt<MapBloc>();
-          return mapBloc..add(const MapEvent.loadStarted());
+          final PlaceLoaderBloc placeLoaderBloc = getIt<PlaceLoaderBloc>();
+          return placeLoaderBloc..add(const PlaceLoaderEvent.loadStarted());
         }),
         BlocProvider(create: (_) => getIt<WeatherBloc>()),
       ],

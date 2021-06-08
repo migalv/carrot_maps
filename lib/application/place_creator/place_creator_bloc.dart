@@ -6,19 +6,20 @@ import 'package:carrot_maps/domain/place/place.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-part 'places_event.dart';
-part 'places_state.dart';
-part 'places_bloc.freezed.dart';
+part 'palce_creator_event.dart';
+part 'place_creator_state.dart';
+part 'place_creator_bloc.freezed.dart';
 
 @injectable
-class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
+class PlaceCreatorBloc extends Bloc<PlaceCreatorEvent, PlaceCreatorState> {
   final IPlaceRepository _placeRepository;
 
-  PlacesBloc(this._placeRepository) : super(const PlacesState.initial());
+  PlaceCreatorBloc(this._placeRepository)
+      : super(const PlaceCreatorState.initial());
 
   @override
-  Stream<PlacesState> mapEventToState(
-    PlacesEvent event,
+  Stream<PlaceCreatorState> mapEventToState(
+    PlaceCreatorEvent event,
   ) async* {
     yield* event.map(
       formSubmitted: (event) async* {
@@ -30,7 +31,7 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
           latitude = double.parse(event.latitude);
 
           if (_validateLatLng(latitude, longitude)) {
-            yield const PlacesState.formSubmitionFailure(
+            yield const PlaceCreatorState.formSubmitionFailure(
               failureMessage: "Valores incorrectos para longitud y/o latitud",
             );
           } else {
@@ -42,7 +43,7 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
             final result = await _placeRepository.create(newPlace);
 
             yield* result.fold((l) async* {
-              yield PlacesState.formSubmitionFailure(
+              yield PlaceCreatorState.formSubmitionFailure(
                 failureMessage: l.when(
                   unexpected: () {
                     return "Ocurrió un error inesperado";
@@ -53,15 +54,15 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
                 ),
               );
             }, (r) async* {
-              yield const PlacesState.formSubmitionSuccess();
+              yield const PlaceCreatorState.formSubmitionSuccess();
             });
           }
         } on FormatException {
-          yield const PlacesState.formSubmitionFailure(
+          yield const PlaceCreatorState.formSubmitionFailure(
             failureMessage: "Valores incorrectos para longitud y/o latitud",
           );
         }
-        yield const PlacesState.initial();
+        yield const PlaceCreatorState.initial();
       },
     );
   }
