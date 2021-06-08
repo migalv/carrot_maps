@@ -15,6 +15,7 @@ class HomePage extends StatelessWidget {
       ],
       appBarBuilder: (_, __) => AppBar(
         title: const Text("Carrot Maps"),
+        centerTitle: true,
       ),
       bottomNavigationBuilder: (_, tabsRouter) => BottomNavigationBar(
         currentIndex: tabsRouter.activeIndex,
