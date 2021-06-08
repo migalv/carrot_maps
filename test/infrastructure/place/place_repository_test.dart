@@ -1,11 +1,11 @@
-import 'package:carrot_maps/domain/place.dart';
-import 'package:carrot_maps/infrastructure/place_repository.dart';
+import 'package:carrot_maps/domain/place/place.dart';
+import 'package:carrot_maps/infrastructure/place/place_repository.dart';
 import 'package:cloud_firestore_mocks/cloud_firestore_mocks.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:carrot_maps/infrastructure/core/firestore_helpers.dart';
 
-import '../fixtures/fixture_reader.dart';
+import '../../fixtures/fixture_reader.dart';
 
 void main() {
   final MockFirestoreInstance mockFirestore = MockFirestoreInstance();

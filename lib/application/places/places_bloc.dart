@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:carrot_maps/domain/i_place_repository.dart';
-import 'package:carrot_maps/domain/place.dart';
+import 'package:carrot_maps/domain/place/i_place_repository.dart';
+import 'package:carrot_maps/domain/place/place.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 

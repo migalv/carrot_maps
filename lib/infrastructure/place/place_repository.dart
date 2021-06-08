@@ -1,6 +1,6 @@
-import 'package:carrot_maps/domain/failures/place_repository_failure.dart';
-import 'package:carrot_maps/domain/i_place_repository.dart';
-import 'package:carrot_maps/domain/place.dart';
+import 'package:carrot_maps/domain/place/i_place_repository.dart';
+import 'package:carrot_maps/domain/place/place.dart';
+import 'package:carrot_maps/domain/place/place_repository_failure.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:carrot_maps/infrastructure/core/firestore_helpers.dart';
 import 'package:dartz/dartz.dart';

@@ -1,4 +1,4 @@
-import 'package:carrot_maps/domain/failures/weather_service_failure.dart';
+import 'package:carrot_maps/domain/weather/weather_service_failure.dart';
 import 'package:carrot_maps/infrastructure/weather/weather_service.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
