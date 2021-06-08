@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:carrot_maps/domain/i_place_repository.dart';
-import 'package:carrot_maps/domain/i_weather_repository.dart';
+import 'package:carrot_maps/domain/weather/i_weather_service.dart';
 import 'package:carrot_maps/domain/place.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -14,11 +14,11 @@ part 'map_bloc.freezed.dart';
 @injectable
 class MapBloc extends Bloc<MapEvent, MapState> {
   final IPlaceRepository _placeRepository;
-  final IWeatherRepository _weatherRepository;
+  final IWeatherService _weatherService;
 
   MapBloc(
     this._placeRepository,
-    this._weatherRepository,
+    this._weatherService,
   ) : super(const _Initial());
 
   @override
@@ -29,7 +29,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       yield const MapState.loadInProgress();
 
       final failureOrTemperature =
-          await _weatherRepository.getTemperatureForCoordinates(
+          await _weatherService.getTemperatureForCoordinates(
         latitude: latitude,
         longitude: longitude,
       );

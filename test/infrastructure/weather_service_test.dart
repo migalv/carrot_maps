@@ -1,5 +1,5 @@
-import 'package:carrot_maps/domain/failures/weather_repository_failure.dart';
-import 'package:carrot_maps/infrastructure/weather_repository.dart';
+import 'package:carrot_maps/domain/failures/weather_service_failure.dart';
+import 'package:carrot_maps/infrastructure/weather/weather_service.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -7,18 +7,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'weather_repository_test.mocks.dart';
+import 'weather_service_test.mocks.dart';
 
 @GenerateMocks([Dio])
 Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
   final mockDio = MockDio();
-  final weatherRepository = WeatherRepository(mockDio);
+  final weatherService = WeatherService(mockDio);
 
   group('getTemperatureForCoordinates', () {
     test(
-      'should return WeatherRepositoryFailure.serverError when server responds with error code',
+      'should return WeatherServiceFailure.serverError when server responds with error code',
       () async {
         // arrange
         const double tLatitude = 37.39;
@@ -40,7 +40,7 @@ Future<void> main() async {
           ),
         );
         // act
-        final result = await weatherRepository.getTemperatureForCoordinates(
+        final result = await weatherService.getTemperatureForCoordinates(
           latitude: tLatitude,
           longitude: tLongitude,
         );
@@ -49,14 +49,14 @@ Future<void> main() async {
         expect(
           result,
           const Left(
-            WeatherRepositoryFailure.serverError(errorCode: tStatusCode),
+            WeatherServiceFailure.serverError(errorCode: tStatusCode),
           ),
         );
       },
     );
 
     test(
-      'should return WeatherRepositoryFailure.noResponse when server does not respond',
+      'should return WeatherServiceFailure.noResponse when server does not respond',
       () async {
         // arrange
         const double tLatitude = 37.39;
@@ -69,7 +69,7 @@ Future<void> main() async {
           DioError(requestOptions: RequestOptions(path: "/data/2.5/weather")),
         );
         // act
-        final result = await weatherRepository.getTemperatureForCoordinates(
+        final result = await weatherService.getTemperatureForCoordinates(
           latitude: tLatitude,
           longitude: tLongitude,
         );
@@ -78,14 +78,14 @@ Future<void> main() async {
         expect(
           result,
           const Left(
-            WeatherRepositoryFailure.noResponse(errorMessage: ""),
+            WeatherServiceFailure.noResponse(errorMessage: ""),
           ),
         );
       },
     );
 
     test(
-      'should return WeatherRepositoryFailure.unknownServerResponse when server responds unexpectedly',
+      'should return WeatherServiceFailure.unknownServerResponse when server responds unexpectedly',
       () async {
         // arrange
         const double tLatitude = 37.39;
@@ -102,7 +102,7 @@ Future<void> main() async {
           ),
         );
         // act
-        final result = await weatherRepository.getTemperatureForCoordinates(
+        final result = await weatherService.getTemperatureForCoordinates(
           latitude: tLatitude,
           longitude: tLongitude,
         );
@@ -111,7 +111,7 @@ Future<void> main() async {
         expect(
           result,
           const Left(
-            WeatherRepositoryFailure.unknownServerResponse(
+            WeatherServiceFailure.unknownServerResponse(
               errorCode: tStatusCode,
             ),
           ),
@@ -139,7 +139,7 @@ Future<void> main() async {
           ),
         );
         // act
-        final result = await weatherRepository.getTemperatureForCoordinates(
+        final result = await weatherService.getTemperatureForCoordinates(
           latitude: tLatitude,
           longitude: tLongitude,
         );

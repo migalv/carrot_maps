@@ -5,6 +5,7 @@ analyzer:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
     - "**/*.config.dart"
+    - "**/*.mocks.dart"
   errors:
     missing_required_param: error
     missing_return: error

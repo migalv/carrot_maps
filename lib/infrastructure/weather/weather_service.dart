@@ -1,18 +1,18 @@
-import 'package:carrot_maps/domain/failures/weather_repository_failure.dart';
-import 'package:carrot_maps/domain/i_weather_repository.dart';
+import 'package:carrot_maps/domain/failures/weather_service_failure.dart';
+import 'package:carrot_maps/domain/weather/i_weather_service.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
 
-@LazySingleton(as: IWeatherRepository)
-class WeatherRepository implements IWeatherRepository {
+@LazySingleton(as: IWeatherService)
+class WeatherService implements IWeatherService {
   final Dio _dio;
 
-  WeatherRepository(this._dio);
+  WeatherService(this._dio);
 
   @override
-  Future<Either<WeatherRepositoryFailure, double>> getTemperatureForCoordinates(
+  Future<Either<WeatherServiceFailure, double>> getTemperatureForCoordinates(
       {required double latitude, required double longitude}) async {
     late Response<Map<String, dynamic>> response;
     try {
@@ -31,20 +31,20 @@ class WeatherRepository implements IWeatherRepository {
         }
       }
     } on DioError catch (e) {
-      late WeatherRepositoryFailure failure;
+      late WeatherServiceFailure failure;
       if (e.response != null) {
-        failure = WeatherRepositoryFailure.serverError(
+        failure = WeatherServiceFailure.serverError(
           errorCode: e.response!.statusCode,
         );
       } else {
-        failure = WeatherRepositoryFailure.noResponse(
+        failure = WeatherServiceFailure.noResponse(
           errorMessage: e.message,
         );
       }
       return Left(failure);
     }
 
-    final failure = WeatherRepositoryFailure.unknownServerResponse(
+    final failure = WeatherServiceFailure.unknownServerResponse(
       errorCode: response.statusCode,
     );
     return Left(failure);
