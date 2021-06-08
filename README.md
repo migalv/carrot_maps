@@ -1,5 +1,6 @@
 # Carrot Maps
 
+This app is only supported for Android.
 ## Steps to build & run App
 
 1- First we will generate the generated files by running:
@@ -12,3 +13,9 @@ Add a file named `.env` at the root of the folder and add a line with `OPEN_WEAT
 Add a file named `local_maps.properties` at `android/` and add a line like this `MAPS_API_KEY=YOUR_API_KEY_HERE`
 
 4- Add the Google Services JSON to connect the app to your Firebase Project.
+
+## Test Driven Development
+
+This project was implemented using the test driven development metodology.
+
+You can check the tests in the /test/ folder
