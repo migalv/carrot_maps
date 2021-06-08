@@ -1,5 +1,5 @@
-import 'package:carrot_maps/domain/failures/place_repository_failure.dart';
-import 'package:carrot_maps/domain/place.dart';
+import 'package:carrot_maps/domain/place/place.dart';
+import 'package:carrot_maps/domain/place/place_repository_failure.dart';
 import 'package:dartz/dartz.dart';
 
 /// Specifies a contract for a repository that handles Places

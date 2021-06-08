@@ -222,6 +222,7 @@ generated_plugin_registrant.dart
 *.freezed.dart
 *.config.dart
 *.gr.dart
+*.mocks.dart
 
 ## For testing
 .test_coverage.dart

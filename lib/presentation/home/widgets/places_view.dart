@@ -1,4 +1,4 @@
-import 'package:carrot_maps/application/places/places_bloc.dart';
+import 'package:carrot_maps/application/place_creator/place_creator_bloc.dart';
 import 'package:carrot_maps/injection.dart';
 import 'package:carrot_maps/presentation/themes/carrot_theme.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +21,8 @@ class _PlacesViewState extends State<PlacesView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<PlacesBloc>(),
-      child: BlocConsumer<PlacesBloc, PlacesState>(
+      create: (_) => getIt<PlaceCreatorBloc>(),
+      child: BlocConsumer<PlaceCreatorBloc, PlaceCreatorState>(
         listener: _blocListener,
         builder: (context, state) {
           return Form(
@@ -57,23 +57,6 @@ class _PlacesViewState extends State<PlacesView> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: TextFormField(
-                    controller: _longitudeController,
-                    decoration: const InputDecoration(
-                      labelText: "Longitud",
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Introduce una longitud';
-                      }
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: TextFormField(
                     controller: _latitudeController,
                     decoration: const InputDecoration(
                       labelText: "Latitud",
@@ -84,6 +67,23 @@ class _PlacesViewState extends State<PlacesView> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Introduce una latitud';
+                      }
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: TextFormField(
+                    controller: _longitudeController,
+                    decoration: const InputDecoration(
+                      labelText: "Longitud",
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Introduce una longitud';
                       }
                     },
                   ),
@@ -109,7 +109,8 @@ class _PlacesViewState extends State<PlacesView> {
     );
   }
 
-  void _blocListener(BuildContext context, PlacesState state) => state.when(
+  void _blocListener(BuildContext context, PlaceCreatorState state) =>
+      state.when(
         initial: () {},
         formSubmitionSuccess: () => ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -125,12 +126,12 @@ class _PlacesViewState extends State<PlacesView> {
       );
 
   void _submitForm(BuildContext context) {
-    final event = PlacesEvent.formSubmitted(
+    final event = PlaceCreatorEvent.formSubmitted(
       name: _nameController.text,
       longitude: _longitudeController.text,
       latitude: _latitudeController.text,
     );
 
-    context.read<PlacesBloc>().add(event);
+    context.read<PlaceCreatorBloc>().add(event);
   }
 }
