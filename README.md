@@ -1,16 +1,14 @@
-# carrot_maps
+# Carrot Maps
 
-A new Flutter project.
+## Steps to build & run App
 
-## Getting Started
+1- First we will generate the generated files by running:
+`$ flutter pub run build_runner build`
 
-This project is a starting point for a Flutter application.
+2- I used dotenv to securely store API Keys. Please provide the .env file with the API Key for Open Weather API
+Add a file named `.env` at the root of the folder and add a line with `OPEN_WEATHER_API_KEY=YOUR_API_KEY_HERE`
 
-A few resources to get you started if this is your first Flutter project:
+3- I also used an Android environment variable to securely store the Google Maps API Key
+Add a file named `local_maps.properties` at `android/` and add a line like this `MAPS_API_KEY=YOUR_API_KEY_HERE`
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+4- Add the Google Services JSON to connect the app to your Firebase Project.

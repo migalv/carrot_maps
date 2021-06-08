@@ -1,8 +1,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.carrot_maps">
+    <uses-permission
+    android:name="android.permission.ACCESS_FINE_LOCATION" />
+      <uses-permission
+    android:name="android.permission.ACCESS_COARSE_LOCATION" />
    <application
         android:label="carrot_maps"
         android:icon="@mipmap/ic_launcher">
+        <!-- Google Maps API-->
+        <meta-data
+          android:name="com.google.android.geo.API_KEY"
+          android:value="${MAPS_API_KEY}" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
