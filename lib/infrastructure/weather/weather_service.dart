@@ -50,10 +50,3 @@ class WeatherService implements IWeatherService {
     return Left(failure);
   }
 }
-
-const String serverErrorMessage =
-    "Server responded with error.{e.response!.statusCode != null ? ' ({e.response!.statusCode})' : ''}";
-const String noResponseErrorMessage =
-    "Server did not respond.{e.message != " " ? ' Error: {e.message}' : ''}";
-const String unknownServerResponseErrorMessage =
-    "Received an unknown server response {e.response!.statusCode != null ? ' ({e.response!.statusCode})' : ''}";
