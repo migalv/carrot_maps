@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 ///
 /// Created using Panache app https://itsallwidgets.com/panache
 final ThemeData carrotTheme = ThemeData(
+  fontFamily: 'Montserrat',
   primarySwatch: const MaterialColor(4280361249, {
     50: Color(0xfff2f2f2),
     100: Color(0xffe6e6e6),
@@ -41,6 +42,21 @@ final ThemeData carrotTheme = ThemeData(
   indicatorColor: accentColor,
   hintColor: const Color(0x80ffffff),
   errorColor: const Color(0xffd32f2f),
+  colorScheme: const ColorScheme(
+    brightness: Brightness.dark,
+    primary: accentColor,
+    primaryVariant: Color(0xff000000),
+    secondary: accentColor,
+    secondaryVariant: accentColor,
+    surface: Color(0xff424242),
+    background: Color(0xff616161),
+    error: Color(0xffd32f2f),
+    onPrimary: Color(0xffffffff),
+    onSecondary: Color(0xff000000),
+    onSurface: Color(0xffffffff),
+    onBackground: Color(0xffffffff),
+    onError: Color(0xff000000),
+  ),
   buttonTheme: const ButtonThemeData(
     padding: EdgeInsets.only(left: 16.0, right: 16.0),
     shape: RoundedRectangleBorder(
@@ -62,7 +78,9 @@ final ThemeData carrotTheme = ThemeData(
       onSecondary: Color(0xff000000),
       onSurface: Color(0xffffffff),
       onBackground: Color(0xffffffff),
-      onError: Color(0xff000000),
+      onError: Color(
+        0xff000000,
+      ),
       brightness: Brightness.dark,
     ),
   ),

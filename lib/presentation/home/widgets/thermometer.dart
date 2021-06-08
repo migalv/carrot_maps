@@ -1,10 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:carrot_maps/core/extensions.dart';
 
 class Thermometer extends StatelessWidget {
-  final double temperature;
-  const Thermometer({Key? key, required this.temperature}) : super(key: key);
+  final double? temperature;
+  final bool isLoading;
+
+  const Thermometer({Key? key, this.temperature = 0.0, this.isLoading = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,15 +19,25 @@ class Thermometer extends StatelessWidget {
         shape: BoxShape.circle,
         color: Colors.black54,
       ),
-      child: CustomPaint(
-        foregroundPainter: CircleProgress(temperature),
-        child: Center(
-          child: Text(
-            "$temperature°C",
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
-          ),
-        ),
-      ),
+      child: isLoading
+          ? const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: CircularProgressIndicator(
+                strokeWidth: 8.0,
+              ),
+            )
+          : CustomPaint(
+              foregroundPainter: CircleProgress(temperature ?? 0.0),
+              child: Center(
+                child: Text(
+                  "${temperature?.toPrecision(1) ?? 0}°C",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
+            ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:carrot_maps/application/map/map_bloc.dart';
+import 'package:carrot_maps/domain/place.dart';
 import 'package:carrot_maps/injection.dart';
 import 'package:carrot_maps/presentation/home/widgets/thermometer.dart';
 import 'package:flutter/material.dart';
@@ -12,43 +13,63 @@ class MapView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<MapBloc>()..add(const MapEvent.loadStarted()),
+      create: (_) => getIt<MapBloc>(),
       child: BlocConsumer<MapBloc, MapState>(
         listener: _blocListener,
-        builder: (context, state) => Stack(
-          children: [
-            _buildMap(state),
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Thermometer(temperature: 21.4),
+        builder: (context, state) {
+          List<Place> places = [];
+          bool isLoading = false;
+          double? temperature;
+
+          state.when(
+            initial: () {
+              isLoading = false;
+            },
+            loadInProgress: () {
+              isLoading = true;
+            },
+            loadSuccess: (loadedPlaces, loadedTemperature) {
+              isLoading = false;
+              temperature = loadedTemperature;
+              places = loadedPlaces;
+            },
+            loadFailure: (failureMessage) {
+              isLoading = false;
+            },
+          );
+
+          return Stack(
+            children: [
+              _buildMap(context, places),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Thermometer(
+                    temperature: temperature,
+                    isLoading: isLoading,
+                  ),
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          );
+        },
       ),
     );
   }
 
-  Widget _buildMap(MapState state) {
+  Widget _buildMap(BuildContext context, List<Place> places) {
     Set<Marker> markers = {};
 
-    state.when(
-      initial: () {},
-      loadSuccess: (places) {
-        markers = places
-            .map(
-              (place) => Marker(
-                markerId: MarkerId(place.name),
-                infoWindow: InfoWindow(title: place.name),
-                position: LatLng(place.latitude, place.longitude),
-              ),
-            )
-            .toSet();
-      },
-      loadFailure: (failureMessage) {},
-    );
+    markers = places
+        .map(
+          (place) => Marker(
+            markerId: MarkerId(place.name),
+            infoWindow: InfoWindow(title: place.name),
+            position: LatLng(place.latitude, place.longitude),
+          ),
+        )
+        .toSet();
 
     return GoogleMap(
       initialCameraPosition: const CameraPosition(target: LatLng(0, 0)),
@@ -77,6 +98,13 @@ class MapView extends StatelessWidget {
 
         _locationData = await location.getLocation();
 
+        context.read<MapBloc>().add(
+              MapEvent.loadStarted(
+                latitude: _locationData.latitude ?? 0.0,
+                longitude: _locationData.longitude ?? 0.0,
+              ),
+            );
+
         controller.animateCamera(
           CameraUpdate.newCameraPosition(
             CameraPosition(
@@ -94,11 +122,12 @@ class MapView extends StatelessWidget {
 
   void _blocListener(BuildContext context, MapState state) => state.when(
         initial: () {},
-        loadSuccess: (places) {},
+        loadInProgress: () {},
+        loadSuccess: (places, temperature) {},
         loadFailure: (failureMessage) =>
             ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(failureMessage),
+            content: Text(failureMessage ?? "Un error inesperado ocurrió"),
           ),
         ),
       );

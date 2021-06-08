@@ -229,4 +229,7 @@ generated_plugin_registrant.dart
 .test_coverage.dart
 coverage/
 
+## Environment variables
+*.env
+
 @migalv
