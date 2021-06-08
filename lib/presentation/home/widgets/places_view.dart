@@ -57,23 +57,6 @@ class _PlacesViewState extends State<PlacesView> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: TextFormField(
-                    controller: _longitudeController,
-                    decoration: const InputDecoration(
-                      labelText: "Longitud",
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Introduce una longitud';
-                      }
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: TextFormField(
                     controller: _latitudeController,
                     decoration: const InputDecoration(
                       labelText: "Latitud",
@@ -84,6 +67,23 @@ class _PlacesViewState extends State<PlacesView> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Introduce una latitud';
+                      }
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: TextFormField(
+                    controller: _longitudeController,
+                    decoration: const InputDecoration(
+                      labelText: "Longitud",
+                      border: OutlineInputBorder(),
+                    ),
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Introduce una longitud';
                       }
                     },
                   ),
