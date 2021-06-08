@@ -1,45 +1,77 @@
 import 'dart:math';
 
+import 'package:carrot_maps/application/weather/weather_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:carrot_maps/core/extensions.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Thermometer extends StatelessWidget {
-  final double? temperature;
-  final bool isLoading;
-
-  const Thermometer({Key? key, this.temperature = 0.0, this.isLoading = false})
-      : super(key: key);
+  const Thermometer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 112.0,
-      width: 112.0,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.black54,
-      ),
-      child: isLoading
-          ? const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: CircularProgressIndicator(
-                strokeWidth: 8.0,
-              ),
-            )
-          : CustomPaint(
-              foregroundPainter: CircleProgress(temperature ?? 0.0),
-              child: Center(
-                child: Text(
-                  "${temperature?.toPrecision(1) ?? 0}°C",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
+    return BlocConsumer<WeatherBloc, WeatherState>(
+      listener: _blocListener,
+      builder: (context, state) {
+        bool isLoading = false;
+        double? temperature;
+
+        state.when(
+          initial: () => isLoading = false,
+          loadInProgress: () => isLoading = true,
+          loadSuccess: (loadedTemperature) {
+            isLoading = false;
+            temperature = loadedTemperature;
+          },
+          loadFailure: (receivedErrorMessage) {
+            isLoading = false;
+          },
+        );
+
+        return Container(
+          height: 112.0,
+          width: 112.0,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.black54,
+          ),
+          child: isLoading
+              ? const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 8.0,
+                  ),
+                )
+              : CustomPaint(
+                  foregroundPainter: CircleProgress(temperature ?? 0.0),
+                  child: Center(
+                    child: Text(
+                      temperature != null
+                          ? "${temperature!.toPrecision(1)}°C"
+                          : "N/A",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
+        );
+      },
     );
   }
+
+  void _blocListener(BuildContext context, WeatherState state) => state.when(
+        initial: () {},
+        loadInProgress: () {},
+        loadSuccess: (places) {},
+        loadFailure: (failureMessage) =>
+            ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(failureMessage),
+          ),
+        ),
+      );
 }
 
 class CircleProgress extends CustomPainter {
